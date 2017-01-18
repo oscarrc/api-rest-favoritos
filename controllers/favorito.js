@@ -7,20 +7,42 @@ function prueba(req, res){
 	});
 };
 
-function param(req,res){
-	if(req.params.name){
-		var nombre = req.params.name;
-	}else{
-		var nombre = "noname";
-	}
+function getFavorito(req,res){
+	//Obtenemos el id pasado como parámetro
+	var favoritoId = req.params.id;
 
-	res.status(200).send({
-		message: 'Hello World with Node, ' + nombre
-	});
+	//Devolvemos un status 200 y el Id
+	res.status(200).send({data: favoritoId})
+}
+
+function getFavoritos(req,res){
+	
+}
+
+function saveFavorito(req,res){
+	//Variable en que almacenamos parámetros POST
+	var params = req.body;
+	res.status(200).send({favorito: params});
+}
+
+function updateFavorito(req,res){
+	//Variable en que almacenamos parámetros POST
+	var params = req.body;
+	res.status(200).send({update:true, favorito: params});
+}
+
+function deleteFavorito(req,res){
+	//Variable en que almacenamos parámetros POST
+	var params = req.body;
+	res.status(200).send({delete:true, favorito: params});
 }
 
 //Exportamos nuestras funciones
 module.exports = {
 	prueba,
-	param
+	getFavorito,
+	getFavoritos,
+	saveFavorito,
+	updateFavorito,
+	deleteFavorito
 }
