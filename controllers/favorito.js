@@ -12,7 +12,19 @@ function prueba(req, res){
 
 function getFavorito(req,res){
 	var favoritoId = req.params.id;
-	res.status(200).send({data: favoritoId})
+    
+    //Recuperamos el favorito por su ID
+    Favorito.findById(favoritoId, (err,favorito) => {
+        if(err){
+            res.status(500).send({message: 'Error al recuperar el favorito'});
+        }else if (!favorito){
+            //Si no hay favorito.
+            res.status(500).send({message: 'El favorito solicitado no existe'});
+        }else{
+            //Si existe devolvemos el objeto
+            res.status(200).send(favorito);
+        }
+    });
 }
 
 function getFavoritos(req,res){
