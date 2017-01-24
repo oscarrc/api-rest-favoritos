@@ -66,8 +66,20 @@ function saveFavorito(req,res){
 }
 
 function updateFavorito(req,res){
-	var params = req.body;
-	res.status(200).send({update:true, favorito: params});
+    //Obtenemos el id del objeto a modificar
+	var favoritoId = req.params.id;
+    
+    //En el body vendrán los datos modificados
+    var update = req.body
+    
+    //Buscamos y actualizamos el objeto. Los parámetros son el ID de favorito, el objeto para actualizar y una función callback con error y el objeto actualizado
+    Favorito.findByIdAndUpdate(favoritoId, update, (err, favoritoUpdated) => {
+        if (err){
+            res.status(500).send({message: 'Error al actualizar el favorito'});
+        }else{
+            res.status(200).send(favoritoUpdated);
+        }
+    });
 }
 
 function deleteFavorito(req,res){
