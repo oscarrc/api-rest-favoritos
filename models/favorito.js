@@ -13,5 +13,5 @@ var favoritoSchema = Schema({
     url: String
 });
 
-//Exportamos el modelo utilizando mongoose
-module.exports = mongoose.model('Favorito', favoritoSchema);
+//Exportamos el modelo utilizando mongoose los parámatros son el nombre del modelo, el esquema y la colección (La colección es opcioinal, se creará en plural a partir del nombre del modelo)
+module.exports = mongoose.model('Favorito', favoritoSchema, 'favoritos');

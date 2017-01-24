@@ -5,7 +5,7 @@ var Favorito = require('../models/favorito');
 
 function prueba(req, res){
 	res.status(200).send({
-		message: 'Hello Worlf with Node',
+		message: 'Hello World with Node',
 		data: [1,2,3,4]
 	});
 };
@@ -16,7 +16,17 @@ function getFavorito(req,res){
 }
 
 function getFavoritos(req,res){
-
+    Favorito.find({}).sort('-title').exec((err, favoritos) => {
+        if (err) {
+            res.status(500).send({message: 'Error al recuperar los favoritos'});
+        }else if (!favoritos){
+            //Si no hay error pero no hay ningún favorito
+            res.status(404).send({message: 'No se han encontrado favoritos'});
+        }else{
+            //Si todo está correcto devolvemos el array de favoritos
+            res.status(200).send(favoritos);
+        }
+    });
 }
 
 function saveFavorito(req,res){
