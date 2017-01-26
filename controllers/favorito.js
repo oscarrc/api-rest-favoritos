@@ -7,9 +7,20 @@ var Favorito = require('../models/favorito');
 function getFavorito(req,res){
 	//Obtenemos el id pasado como parámetro
 	var favoritoId = req.params.id;
-
-	//Devolvemos un status 200 y el Id
-	res.status(200).send({data: favoritoId})
+    
+    //Buscamos el favorito
+    Favorito.findById(favoritoId, (err,favorito) => {
+        if(err){
+            //Si hay error
+            res.status(500).send({message: 'Error al recuperar el favorito solicitado'});
+        }else if(!favorito){
+            //Si no hay error pero no hay ningún favorito
+            res.status(404).send({message: 'No se ha encontrado el favorito solicitado'});
+        }else{
+          //Devolvemos un status 200 y el favorito
+	       res.status(200).send({data: favorito})  
+        }
+    });  
 }
 
 function getFavoritos(req,res){
