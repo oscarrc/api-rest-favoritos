@@ -97,6 +97,7 @@ function deleteFavorito(req,res){
     });
 }
 
+//Exportamos los métodos
 module.exports = {
 	getFavorito,
 	getFavoritos,

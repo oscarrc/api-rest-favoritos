@@ -24,6 +24,8 @@ app.use((req, res, next) => {
     next();
 });
 
+//Llamamos a nuestra api con path /api
 app.use('/api', api);
 
+//Exportamos la app
 module.exports = app;
